@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Generator</title>
+    <title>CSS Animated Flower</title>
     <style>
         body {
             display: flex;
@@ -12,48 +12,62 @@
             height: 100vh;
             background-color: #f0f8ff;
         }
-        canvas {
-            border: 2px solid black;
+        .flower {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .petal {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background: pink;
+            border-radius: 50%;
+            transform-origin: bottom center;
+            animation: bloom 3s infinite alternate;
+        }
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-25px); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-25px); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-25px); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-25px); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-25px); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-25px); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-25px); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-25px); }
+        
+        .center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: yellow;
+            border-radius: 50%;
+            top: 30px;
+            left: 30px;
+        }
+        
+        @keyframes bloom {
+            from {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <canvas id="flowerCanvas" width="500" height="500"></canvas>
-    <script>
-        const canvas = document.getElementById("flowerCanvas");
-        const ctx = canvas.getContext("2d");
-        
-        function drawFlower(x, y, petals, radius, color) {
-            for (let i = 0; i < petals; i++) {
-                let angle = (i * (Math.PI * 2)) / petals;
-                let petalX = x + Math.cos(angle) * radius;
-                let petalY = y + Math.sin(angle) * radius;
-                
-                ctx.beginPath();
-                ctx.arc(petalX, petalY, radius / 2, 0, Math.PI * 2);
-                ctx.fillStyle = color;
-                ctx.fill();
-                ctx.closePath();
-            }
-            
-            ctx.beginPath();
-            ctx.arc(x, y, radius / 2, 0, Math.PI * 2);
-            ctx.fillStyle = "yellow";
-            ctx.fill();
-            ctx.closePath();
-        }
-        
-        canvas.addEventListener("click", (event) => {
-            let rect = canvas.getBoundingClientRect();
-            let x = event.clientX - rect.left;
-            let y = event.clientY - rect.top;
-            let petals = Math.floor(Math.random() * 6) + 5;
-            let radius = Math.floor(Math.random() * 20) + 20;
-            let colors = ["red", "pink", "purple", "blue", "orange"];
-            let color = colors[Math.floor(Math.random() * colors.length)];
-            
-            drawFlower(x, y, petals, radius, color);
-        });
-    </script>
+    <div class="flower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+    </div>
 </body>
 </html>
