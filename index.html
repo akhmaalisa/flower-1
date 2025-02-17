@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Generator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+        canvas {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="flowerCanvas" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById("flowerCanvas");
+        const ctx = canvas.getContext("2d");
+        
+        function drawFlower(x, y, petals, radius, color) {
+            for (let i = 0; i < petals; i++) {
+                let angle = (i * (Math.PI * 2)) / petals;
+                let petalX = x + Math.cos(angle) * radius;
+                let petalY = y + Math.sin(angle) * radius;
+                
+                ctx.beginPath();
+                ctx.arc(petalX, petalY, radius / 2, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.closePath();
+            }
+            
+            ctx.beginPath();
+            ctx.arc(x, y, radius / 2, 0, Math.PI * 2);
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+            ctx.closePath();
+        }
+        
+        canvas.addEventListener("click", (event) => {
+            let rect = canvas.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            let petals = Math.floor(Math.random() * 6) + 5;
+            let radius = Math.floor(Math.random() * 20) + 20;
+            let colors = ["red", "pink", "purple", "blue", "orange"];
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            
+            drawFlower(x, y, petals, radius, color);
+        });
+    </script>
+</body>
+</html>
